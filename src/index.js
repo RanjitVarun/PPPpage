@@ -3,11 +3,26 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { BrowserRouter } from 'react-router-dom';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
+import { reducer as formReducer } from 'redux-form';
+import thunk from 'redux-thunk';
+
+const rootReducer = combineReducers({
+    form: formReducer
+});
+
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 ReactDOM.render(
+    <Provider store={store}>
+    <BrowserRouter>
   <React.StrictMode>
     <App />
-  </React.StrictMode>,
+        </React.StrictMode>
+        </BrowserRouter>
+    </Provider>,
   document.getElementById('root')
 );
 
